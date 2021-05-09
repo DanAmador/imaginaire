@@ -1,0 +1,52 @@
+Bootstrap: docker
+From: nvcr.io/nvidia/pytorch:20.08-py3
+Stage: spython-base
+
+%files
+imaginaire/third_party/correlation correlation
+imaginaire/third_party/channelnorm channelnorm
+imaginaire/third_party/resample2d resample2d
+%post
+  
+# Install basics
+apt-get update && apt-get install -y --allow-downgrades --allow-change-held-packages --no-install-recommends \
+build-essential \
+cmake \
+git \
+curl \
+vim \
+tmux \
+wget \
+bzip2 \
+unzip \
+g++ \
+ca-certificates \
+ffmpeg \
+libx264-dev \
+imagemagick
+
+pip install scikit-image tqdm wget
+pip install Pillow==6.1
+pip install cython pyyaml lmdb scipy tensorboard
+pip install jupyterlab --upgrade
+pip install opencv-python opencv-contrib-python
+pip install open3d
+pip install albumentations requests
+pip install imageio-ffmpeg
+pip install av
+pip install cmake
+pip install pynvml
+pip install nvidia-ml-py3==7.352.0
+pip install face-alignment dlib
+pip install av
+
+# Install correlation.
+cd correlation && rm -rf build dist *-info && python setup.py install
+# Install channelnorm.
+cd channelnorm && rm -rf build dist *-info && python setup.py install
+# Install resample2d.
+cd resample2d && rm -rf build dist *.egg-info && python setup.py install
+%runscript
+exec /bin/bash echo "This is a test." | wc - "$@"
+%startscript
+exec /bin/bash echo "This is a test." | wc - "$@"
