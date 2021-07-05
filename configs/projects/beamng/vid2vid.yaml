@@ -162,7 +162,7 @@ data:
 pretrained_weight: 1b2M5rU740vBurLQ9iDP2kb4sP5HAb-Jx
 
 test_data:
-    name: 'cityscapes'    
+    name: 'beamng'    
     type: imaginaire.datasets.paired_videos
     num_workers: 4
     paired: True    
