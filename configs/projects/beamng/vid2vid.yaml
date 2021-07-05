@@ -181,7 +181,7 @@ test_data:
     input_image:
         - images
     input_labels:
-        - seg_maps
+        - annotations
     
     test:
         is_lmdb: False
